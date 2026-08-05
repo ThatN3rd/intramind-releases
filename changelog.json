@@ -1,5 +1,98 @@
 [
   {
+    "version": "1.5.5",
+    "changes": [
+      "Query results are now shown as a scrollable table instead of typed out row-by-row, and the row limit has been raised from 200 to 1000",
+      "When a result is too large to show in full, the total count and total are now always accurate -- previously they could be silently based on only the visible rows instead of the full result",
+      "Fixed: some general ledger questions were reading an empty pending-transactions table instead of the posted ledger, which could show no activity for accounts that actually had activity",
+      "Fixed: dates stored as text in older ledger tables (including EBMS's year-end adjustment entries) no longer cause the query to fail",
+      "Fixed: questions about a specific date or period (\"this month,\" \"last week,\" a bare date) now resolve against today's actual date instead of an example date",
+      "Fixed: sales and revenue totals for a period are now always calculated directly in the database, never estimated from a partial list of rows",
+      "Fixed: excluding a customer or vendor by name no longer accidentally excludes every company-type account that has no first name on file",
+      "Fixed: a fuzzy-match filter (like a warehouse name) combined with a date or status filter now groups correctly, so the date/status filter can no longer be silently dropped",
+      "Fixed: item-level revenue questions no longer double-count when joined against invoice header totals",
+      "Performance: query costs reduced by caching the AI's system instructions instead of resending them in full on every question",
+      "Fixed login failing after a password reset on newer EBMS versions -- some EBMS builds store the password differently than older versions, and login now recognizes both",
+      "Auto-update now recognizes and repairs its own tunnel service if it was previously renamed or disabled by a conflict with another Cloudflare Tunnel-based product",
+      "Added a Settings option to the account menu, where you can now choose to hide the SQL shown under chat answers. The theme (light/dark) toggle has also moved here from its own header button."
+    ]
+  },
+  {
+    "version": "1.5.4",
+    "changes": [
+      "Added a Settings option to the account menu, where you can now choose to hide the SQL shown under chat answers. The theme (light/dark) toggle has also moved here from its own header button."
+    ]
+  },
+  {
+    "version": "1.5.3",
+    "changes": [
+      "Query results are now shown as a scrollable table instead of typed out row-by-row, and the row limit has been raised from 200 to 1000",
+      "When a result is too large to show in full, the total count and total are now always accurate -- previously they could be silently based on only the visible rows instead of the full result",
+      "Fixed: some general ledger questions were reading an empty pending-transactions table instead of the posted ledger, which could show no activity for accounts that actually had activity",
+      "Fixed: dates stored as text in older ledger tables (including EBMS's year-end adjustment entries) no longer cause the query to fail",
+      "Fixed: questions about a specific date or period (\"this month,\" \"last week,\" a bare date) now resolve against today's actual date instead of an example date",
+      "Fixed: sales and revenue totals for a period are now always calculated directly in the database, never estimated from a partial list of rows",
+      "Fixed: excluding a customer or vendor by name no longer accidentally excludes every company-type account that has no first name on file",
+      "Fixed: a fuzzy-match filter (like a warehouse name) combined with a date or status filter now groups correctly, so the date/status filter can no longer be silently dropped",
+      "Fixed: item-level revenue questions no longer double-count when joined against invoice header totals",
+      "Performance: query costs reduced by caching the AI's system instructions instead of resending them in full on every question"
+    ]
+  },
+  {
+    "version": "1.5.2",
+    "changes": [
+      "Fixed login failing after a password reset on newer EBMS versions -- some EBMS builds store the password differently than older versions, and login now recognizes both",
+      "Auto-update now recognizes and repairs its own tunnel service if it was previously renamed or disabled by a conflict with another Cloudflare Tunnel-based product"
+    ]
+  },
+  {
+    "version": "1.5.1",
+    "changes": [
+      "Fixed a conflict on servers that also run other Cloudflare Tunnel-based software (e.g. Koble) -- installing or updating IntraMind could previously disable the other product's connection, and vice versa",
+      "Fixed an installation failure on servers with a newer version of Python already present",
+      "Fixed a missing dependency that could cause the installer to fail partway through on a fresh server"
+    ]
+  },
+  {
+    "version": "1.4.9",
+    "changes": [
+      "Vendor payment questions now correctly query vendor bills instead of customer invoices",
+      "Fixed: payments applied to a specific invoice were returning zero results due to a wrong join key between payment tables",
+      "Fixed: \"bills due this week\" and similar queries now correctly handle bills with no payment terms set in EBMS",
+      "Fixed: early payment discount queries now use the discount deadline, not the final payment due date",
+      "Fixed: payroll averages and counts now correctly include only finalized paychecks, not in-progress or voided entries",
+      "\"Last pay period\" queries now use the actual pay period from EBMS instead of an approximate date range",
+      "Fixed: job name lookups (e.g. \"hours on the Riverside job\") now resolve correctly through the job code",
+      "Fixed: questions asking for a count or breakdown by category now use grouped totals instead of a row list that could be truncated",
+      "Fixed: \"slowest payers\" and similar date-difference queries no longer error on the days calculation",
+      "Deleted/merged customer records no longer appear in customer lists and lookups",
+      "Business questions phrased in industry language (menu items, collections, payroll spend, gross margin) are now always answered directly"
+    ]
+  },
+  {
+    "version": "1.4.8",
+    "changes": [
+      "Ghost invoice lines from deleted EBMS records no longer appear in queries or KPI totals -- IntraMind now correctly ignores records that were deleted in EBMS but carried over by the database sync",
+      "Fixed employee hours and payroll queries where filtering by a person's name plus a date range could return results for all employees with a matching first name, ignoring the date"
+    ]
+  },
+  {
+    "version": "1.4.7",
+    "changes": []
+  },
+  {
+    "version": "1.4.6",
+    "changes": [
+      "Item lookups by ID are now more reliable -- trailing spaces and case differences in EBMS item codes no longer cause misses",
+      "IntraMind no longer asks you to run a query yourself -- all queries run automatically and results are shown directly",
+      "All KPI dashboard cards now show a matching breakdown when clicked -- the drill-through number will always match the card",
+      "Payments received: drill-through now correctly excludes voided payments and refund rows, matching the KPI",
+      "Bills due this week: drill-through now shows only bills due within the next 7 days, not all open AP",
+      "Payroll: the KPI and drill-through now correctly exclude expense reimbursements, matching EBMS's own payroll report",
+      "Sales: drill-through now uses the same posted-invoice filter (statuses O and X) as the KPI card"
+    ]
+  },
+  {
     "version": "1.4.5",
     "changes": [
       "Major accuracy pass on how answers are calculated -- a broad review corrected dozens of underlying data rules",
